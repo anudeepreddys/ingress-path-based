@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: webapp-multi-ingress
+  namespace: ingress-nginx
+  annotations: 
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  defaultBackend:
+    service:
+      name: webapp3333-service
+      port:
+        number: 80
+  rules:
+  - host: www.sample.example.com
+    http:
+      paths:
+      - path: /1/
+        pathType: Prefix
+        backend:
+          service:
+            name:  webapp1111-service
+            port: 
+              number: 80
+      - path: /2/ 
+        pathType: Prefix
+        backend:
+          service:
+            name:  webapp2222-service
+            port: 
+              number: 80

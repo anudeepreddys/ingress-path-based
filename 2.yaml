@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp2222
+spec:
+  minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: webapp2222
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webapp2222
+    spec:
+      containers:
+      - name: webapp2222
+        image: nginx
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp2222-service
+spec:
+  type: NodePort
+  selector: 
+    app: webapp2222
+  ports:
+    - name: http
+      port: 80
+      nodePort: 30092 # only for NotPort > 30,000

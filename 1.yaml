@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp1111
+spec:
+  minReadySeconds: 30
+  selector:
+    matchLabels:
+      app: webapp1111
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webapp1111
+    spec:
+      containers:
+      - name: webapp1111
+        image: nginx
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: webapp1111-service
+spec:
+  type: NodePort
+  selector: 
+    app: webapp1111
+  ports:
+    - name: http
+      port: 80
+      nodePort: 30091 # only for NotPort > 30,000
